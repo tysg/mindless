@@ -14,13 +14,11 @@ class TextGenerator(object):
 
             Parameters:
                 n (int) : order of the n-gram model
-                k (float) : smoothing hyperparameter
                 vocab (list) : vocabulary of the corpus
                 word_count_dict : key=(context_n-1,...,context_1, word), value=count
                 contexts_count_dict : key=(context_n-1,...,context_1), value=count
         '''
         self.n = 3
-        self.k = 0.00001
 
         self.vocab = list(pickle.load(open(os.path.join(absolute_path, 'vocab'), 'rb')))
         self.word_count_dict = pickle.load(open(os.path.join(absolute_path,'word_count'), 'rb'))
@@ -31,8 +29,11 @@ class TextGenerator(object):
     def tokenize(self, text):
         return re.split(r'[^a-zA-Z\'’\-~]+', text)
 
-    def get_next_word_probability(self, text, word):
-        ''' Returns the probability of word appearing after specified text '''
+    def get_next_word_probability(self, text, word, k):
+        ''' 
+        Returns the probability of word appearing after specified text 
+        k (float) : smoothing hyperparameter
+        '''
         
         text = "~ " + text
 
@@ -57,22 +58,22 @@ class TextGenerator(object):
             count_context = 0
         
         # apply add-k smoothing
-        return (count_word + self.k) / (count_context + self.k * len(self.vocab))
+        return (count_word + k) / (count_context + k * len(self.vocab))
 
-    def generate_word(self, text):
+    def generate_word(self, text, k):
         '''
         Returns a random word based on the specified text and n-grams learned
         by the model
         '''
         weights = []
         for v in self.vocab:
-            prob = self.get_next_word_probability(text, v)
+            prob = self.get_next_word_probability(text, v, k)
             weights.append(prob)
             
         return random.choices(self.vocab, weights=weights, k=1)[0]
 
-    def get_sentence_length(self):
-        return random.randint(8, 15)
+    def get_sentence_length(self, low, high):
+        return random.randint(low, high)
 
     def capitalize_i(self, s):
         return s.replace(" i ", " I ").replace(" i'", " I'").replace(" i’", " I’")
@@ -85,9 +86,34 @@ class TextGenerator(object):
         ]
         return random.choice(ending_punctuations)
 
-    def generate_text(self):
+    def continue_to_say_something(self, text):
+        length = self.get_sentence_length(3,5)
+        words_left = length
+        answer = ""
+        
+        while words_left > 0:
+            next_word = self.generate_word(text, 0.00005)
+            if words_left == length and next_word == "~":
+                continue
+
+            if next_word == "~":
+                break
+
+            text += " " + next_word
+            answer += next_word + " "
+            words_left -= 1
+
+        # formatting
+        answer = self.capitalize_i(answer.strip())
+        answer += self.get_ending_punctuation()
+
+        return answer
+
+
+
+    def say_something(self):
         ''' Returns text of the specified length based on the learned model '''        
-        length = self.get_sentence_length()
+        length = self.get_sentence_length(10,13)
         
         starting_of_sentence = [x for x in self.word_count_dict.items() if x[0][0]=="~"]
         words = [x[0] for x in starting_of_sentence]
@@ -96,22 +122,26 @@ class TextGenerator(object):
         sentence = " ".join(max_key)
         words_left = length - (self.n-1)
         if sentence[-1] == "~":
-            return sentence[:-1].strip().capitalize()
+            return sentence[2:-1].strip().capitalize()
         
         # generate the rest of the sentence
         for i in range(words_left, 0, -1):
-            next_word= self.generate_word(sentence)
+            next_word= self.generate_word(sentence, 0.00001)
             if next_word == "~":
                 break
-            sentence += " "
-            sentence += next_word
+            sentence += " " + next_word
         
         # remove "~" at start
         if sentence[0] == "~":
             sentence = sentence[2:]
+
 
         # formatting
         sentence = self.capitalize_i(sentence.strip().capitalize())
         sentence += self.get_ending_punctuation()
 
         return sentence
+
+# tg = TextGenerator()
+# print(tg.continue_to_say_something("you are"))
+# print(tg.say_something())

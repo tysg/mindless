@@ -4,20 +4,18 @@ import sys
 
 class NgramLM(object):
 
-    def __init__(self, n, k):
+    def __init__(self, n):
         '''
             Initialize the n-gram LM class
 
             Parameters:
                 n (int) : order of the n-gram model
-                k (float) : smoothing hyperparameter
                 corpus (string) : text corpus used
                 tokens (list) : results of tokenization
                 word_count_dict : key=(context_n-1,...,context_1, word), value=count
                 contexts_count_dict : key=(context_n-1,...,context_1), value=count
         '''
         self.n = n
-        self.k = k
         self.corpus = ""
         self.tokens = []
 
@@ -101,7 +99,7 @@ class NgramLM(object):
         pickle.dump(self.contexts_count_dict, open(context_count_path, 'wb'))
         pickle.dump(self.get_vocabulary(), open(vocab_path, 'wb'))
 
-ng = NgramLM(3, 0.00001)
+ng = NgramLM(3)
 print(sys.argv[1])
 ng.read_file(sys.argv[1])
 ng.wrtie_to_file("word_count", "context_count", "vocab")
