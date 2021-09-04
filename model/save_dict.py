@@ -86,14 +86,15 @@ class NgramLM(object):
         for c in re.findall("([A-Z]+)", text):
             text = text.replace(c, c.lower())
         # split by non-alphabet, except ' - and ~
-        tokens = re.split(r'[^a-zA-Z\'’\-~]+', text)      
+        tokens = re.split(r'[^a-zA-Z\'’\-~]+', text)
         return [x for x in tokens if x != ""]
 
 
     def get_vocabulary(self):
         ''' Returns the vocabulary as set of words '''        
         vocab = set(self.tokens)
-        to_remove = set(["die", "died", "dead", "death", "suicide", "suicidal", "suicides", "kill", "kills", "killed", "bad", "miserable"])
+        to_remove = set(["die", "died", "dead", "death", "suicide", "suicidal", "suicides", 
+            "kill", "kills", "killed", "bad", "miserable", "depressed", "depressing", "depression"])
         return vocab - to_remove
     
     def wrtie_to_file(self, word_count_path, context_count_path, vocab_path):
