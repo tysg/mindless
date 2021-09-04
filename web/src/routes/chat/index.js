@@ -27,18 +27,20 @@ const Chat = () => {
   };
 
   return (
-    <div>
+    <div class={style.container}>
       <nav>
         <Link activeClassName={style.active} href="/">
           Back
         </Link>
       </nav>
-      {avatar !== null && (
-        <img class={style.avatar} src={avatar} onClick={requestGibberish}></img>
-      )}
-      <p>{speech}</p>
-      <textarea onInput={(e) => setText(e.target.value)}>{text}</textarea>
-      <button onClick={requestMoreGibberish}>Send</button>
+      <div class={style.bubble}>{speech}</div>
+      <div class={style.container}>
+        {avatar !== null && (
+          <img class={style.avatar} src={avatar} onClick={requestGibberish}></img>
+        )}
+        <input onInput={(e) => setText(e.target.value)}>{text}</input>
+        <button class={style.button} onClick={requestMoreGibberish}>Send</button>
+      </div>
     </div>
   );
 };
