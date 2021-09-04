@@ -19,11 +19,9 @@ class TextGenerator(object):
                 contexts_count_dict : key=(context_n-1,...,context_1), value=count
         '''
         self.n = 3
-
         self.vocab = list(pickle.load(open(os.path.join(absolute_path, 'vocab'), 'rb')))
         self.word_count_dict = pickle.load(open(os.path.join(absolute_path,'word_count'), 'rb'))
         self.contexts_count_dict = pickle.load(open(os.path.join(absolute_path, 'context_count'), 'rb'))
-        
     
 
     def tokenize(self, text):
@@ -86,20 +84,22 @@ class TextGenerator(object):
         ]
         return random.choice(ending_punctuations)
 
-    def continue_to_say_something(self, text):
-        length = self.get_sentence_length(3,5)
+    def continue_to_say_something(self, input_text):
+        ''' Returns a phrase that follows the user input '''
+
+        length = self.get_sentence_length(2,4)
         words_left = length
         answer = ""
         
         while words_left > 0:
-            next_word = self.generate_word(text, 0.00005)
+            next_word = self.generate_word(input_text, 0.00004)
             if words_left == length and next_word == "~":
                 continue
 
             if next_word == "~":
                 break
 
-            text += " " + next_word
+            input_text += " " + next_word
             answer += next_word + " "
             words_left -= 1
 
@@ -110,26 +110,33 @@ class TextGenerator(object):
         return answer
 
 
-
     def say_something(self):
-        ''' Returns text of the specified length based on the learned model '''        
-        length = self.get_sentence_length(10,13)
+        ''' Returns a complete sentence based on the learned model '''
+
+        # to achieve a natual ending sentence, the sentence should end when reaching a sentence separator ("~")
+        # instead of being cut off by the word limit. so we retry building the sentence for max 3 times.
+        for retry in range(3):        
+            length = 10 # max length
+            
+            # generating the start of the sentence based on word count dictionary
+            starting_of_sentence = [x for x in self.word_count_dict.items() if x[0][0]=="~"]
+            words = [x[0] for x in starting_of_sentence]
+            prob = [x[1] for x in starting_of_sentence]
+            max_key = random.choices(words, weights=prob, k=1)[0]
+            sentence = " ".join(max_key)
+            words_left = length - (self.n-1)
+            if sentence[-1] == "~":
+                return sentence[2:-1].strip().capitalize()
         
-        starting_of_sentence = [x for x in self.word_count_dict.items() if x[0][0]=="~"]
-        words = [x[0] for x in starting_of_sentence]
-        prob = [x[1] for x in starting_of_sentence]
-        max_key = random.choices(words, weights=prob, k=1)[0]
-        sentence = " ".join(max_key)
-        words_left = length - (self.n-1)
-        if sentence[-1] == "~":
-            return sentence[2:-1].strip().capitalize()
-        
-        # generate the rest of the sentence
-        for i in range(words_left, 0, -1):
-            next_word= self.generate_word(sentence, 0.00001)
-            if next_word == "~":
+            # generate the rest of the sentence
+            for i in range(words_left, 0, -1):
+                next_word= self.generate_word(sentence, 0.00001)
+                if next_word == "~":
+                    break
+                sentence += " " + next_word
+            if i != 0:
+                print(retry)
                 break
-            sentence += " " + next_word
         
         # remove "~" at start
         if sentence[0] == "~":
@@ -143,5 +150,5 @@ class TextGenerator(object):
         return sentence
 
 # tg = TextGenerator()
-# print(tg.continue_to_say_something("you are"))
+# print(tg.continue_to_say_something("i want"))
 # print(tg.say_something())
