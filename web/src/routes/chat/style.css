@@ -1,3 +1,7 @@
+body {
+  background-color: #FFFFEF;
+}
+
 .avatar {
   margin-top: 10px;
   border-radius: 50%;
@@ -17,6 +21,16 @@
 
 .button {
   margin-top: 20px;
+  border-radius: 8px;
+  background-color: #E3BB9D;
+  border: none;
+  color: gray;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bolder;
 }
 
 .bubble {
@@ -27,6 +41,8 @@
 	border-radius: .4em;
   margin-top: 20px;
   margin-bottom: 40px;
+  padding: 20px 20px;
+  font-size: large;
 }
 
 .bubble:after {
@@ -43,6 +59,11 @@
 	margin-bottom: -52px;
 }
 
-input {
+.textinput {
   width: 60%;
+  background-color: #FFBBBB;
+  border-color: transparent;
+  border-radius: 8px;
+  padding: 10px 10px;
+  font-size: large;
 }
