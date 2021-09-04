@@ -8,7 +8,7 @@ absolute_path = os.path.dirname(os.path.abspath(__file__))
 
 class TextGenerator(object):
 
-    def __init__(self, n, k):
+    def __init__(self):
         '''
             Initialize the text generator
 
@@ -19,20 +19,17 @@ class TextGenerator(object):
                 word_count_dict : key=(context_n-1,...,context_1, word), value=count
                 contexts_count_dict : key=(context_n-1,...,context_1), value=count
         '''
-        self.n = n
-        self.k = k
+        self.n = 3
+        self.k = 0.00001
+
         self.vocab = list(pickle.load(open(os.path.join(absolute_path, 'vocab'), 'rb')))
         self.word_count_dict = pickle.load(open(os.path.join(absolute_path,'word_count'), 'rb'))
         self.contexts_count_dict = pickle.load(open(os.path.join(absolute_path, 'context_count'), 'rb'))
+        
     
 
     def tokenize(self, text):
-        for c in re.findall("([A-Z]+)", text):
-            text = text.replace(c, c.lower())
-        # split by non-alphabet, except ' - and ~
-        tokens = re.split(r'[^a-zA-Z\'\-~]+', text)      
-        return [x for x in tokens if x != ""]
-
+        return re.split(r'[^a-zA-Z\'’\-~]+', text)
 
     def get_next_word_probability(self, text, word):
         ''' Returns the probability of word appearing after specified text '''
@@ -74,40 +71,47 @@ class TextGenerator(object):
             
         return random.choices(self.vocab, weights=weights, k=1)[0]
 
-    def generate_text(self, length):
+    def get_sentence_length(self):
+        return random.randint(8, 15)
+
+    def capitalize_i(self, s):
+        return s.replace(" i ", " I ").replace(" i'", " I'").replace(" i’", " I’")
+
+    def get_ending_punctuation(self):
+        ending_punctuations = [
+            '.', '...', '!', '?', '?!', '!!', ' ~ ~', 
+            '♡', '♥', '☆', '★', '☘', '♫', '♩', '☺', '☻',
+            '☽', '⚠', '⚛', '♔'
+        ]
+        return random.choice(ending_punctuations)
+
+    def generate_text(self):
         ''' Returns text of the specified length based on the learned model '''        
-        # get start of the sentence 
-        if self.n == 1:
-            sentence = self.generate_word("")
-            words_left = length - 1
-        else: 
-            starting_of_sentence = [x for x in self.word_count_dict.items() if x[0][0]=="~"]
-            words = [x[0] for x in starting_of_sentence]
-            prob = [x[1] for x in starting_of_sentence]
-            max_key = random.choices(words, weights=prob, k=1)[0]
-            sentence = ""
-            for i in range(0, len(max_key)):
-                sentence += max_key[i]
-                if i != (len(max_key) - 1):
-                    sentence += " "
-            words_left = length - (self.n-1)
+        length = self.get_sentence_length()
         
-        # check if the start of the sentence generated exceeds the length
-        if words_left <= 0:
-            if sentence[0] == "~":
-                sentence = sentence[2:]
-            return sentence
+        starting_of_sentence = [x for x in self.word_count_dict.items() if x[0][0]=="~"]
+        words = [x[0] for x in starting_of_sentence]
+        prob = [x[1] for x in starting_of_sentence]
+        max_key = random.choices(words, weights=prob, k=1)[0]
+        sentence = " ".join(max_key)
+        words_left = length - (self.n-1)
+        if sentence[-1] == "~":
+            return sentence[:-1].strip().capitalize()
         
         # generate the rest of the sentence
-        for i in range(words_left):
+        for i in range(words_left, 0, -1):
             next_word= self.generate_word(sentence)
+            if next_word == "~":
+                break
             sentence += " "
             sentence += next_word
         
+        # remove "~" at start
         if sentence[0] == "~":
             sentence = sentence[2:]
-        return sentence
 
-if __name__ == "__main__":
-    tg = TextGenerator(3, 0.00001)
-    print(tg.generate_text(int(sys.argv[1])))
+        # formatting
+        sentence = self.capitalize_i(sentence.strip().capitalize())
+        sentence += self.get_ending_punctuation()
+
+        return sentence

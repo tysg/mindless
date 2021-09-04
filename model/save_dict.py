@@ -81,14 +81,14 @@ class NgramLM(object):
         '''  Returns padded text '''
         # Use '~' as the padding symbol
         self.corpus = "~ " + self.corpus
-        return re.sub(r'((?<!Mr|Dr|Ms)(?<!Mrs)\.|\?|!|;|:)+', r' ~ ', self.corpus)
+        return re.sub(r'((?<!Mr|Dr|Ms)(?<!Mrs)\.|\?|!|;|,)+', r' ~ ', self.corpus)
 
 
     def tokenize(self, text):
         for c in re.findall("([A-Z]+)", text):
             text = text.replace(c, c.lower())
         # split by non-alphabet, except ' - and ~
-        tokens = re.split(r'[^a-zA-Z\'\-~]+', text)      
+        tokens = re.split(r'[^a-zA-Z\'’\-~]+', text)      
         return [x for x in tokens if x != ""]
 
 
