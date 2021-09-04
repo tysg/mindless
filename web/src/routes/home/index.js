@@ -18,11 +18,9 @@ const Home = ({ updateBlob }) => {
       <h1>Struggling?</h1>
       <p>Watch our AI struggle more</p>
       <h2>Choose an avatar</h2>
-      <input type="file" onInput={onUpload}>
-        Upload
-      </input>
+      <input type="file" onInput={onUpload} style="margin-left:80px;"></input>
       {!!avatar && <img class={style.avatar} src={avatar} />}
-      <Link activeClassName={style.active} href="/chat">
+      <Link activeClassName={style.active} href="/chat" style="text-decoration: none; font-weight: bolder;">
         Next
       </Link>
     </div>

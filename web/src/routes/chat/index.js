@@ -29,7 +29,7 @@ const Chat = () => {
   return (
     <div class={style.container}>
       <nav>
-        <Link activeClassName={style.active} href="/">
+        <Link activeClassName={style.active} href="/" style="text-decoration: none; font-weight: bolder;">
           Back
         </Link>
       </nav>
