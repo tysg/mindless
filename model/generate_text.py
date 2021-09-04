@@ -81,8 +81,7 @@ class TextGenerator(object):
     def get_ending_punctuation(self):
         ending_punctuations = [
             '.', '...', '!', '?', '?!', '!!', ' ~ ~', 
-            '♡', '♥', '☆', '★', '☘', '♫', '♩', '☺', '☻',
-            '☽', '⚠', '⚛', '♔'
+            '♡', '☆', '★', ' ♫', ' ♩', ' ☽'
         ]
         return random.choice(ending_punctuations)
 
@@ -108,8 +107,6 @@ class TextGenerator(object):
         answer += self.get_ending_punctuation()
 
         return answer
-
-
 
     def say_something(self):
         ''' Returns text of the specified length based on the learned model '''        
