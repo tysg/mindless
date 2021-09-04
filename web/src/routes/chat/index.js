@@ -31,12 +31,7 @@ const Chat = () => {
           Back
         </Link>
       </nav>
-      {avatar !== null && (
-        <img
-          class={style.avatar}
-          src={window.URL.createObjectURL(avatar)}
-        ></img>
-      )}
+      {avatar !== null && <img class={style.avatar} src={avatar}></img>}
       <p>{speech}</p>
       <textarea onInput={(e) => setText(e.target.value)}>{text}</textarea>
       <button onClick={requestGibberish}>Send</button>
