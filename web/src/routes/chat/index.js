@@ -14,6 +14,13 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
 
   const requestGibberish = () => {
+    axios.get(backendEndpoint).then((value) => {
+      console.log(value);
+      setSpeech(value.data);
+    });
+  };
+
+  const requestMoreGibberish = () => {
     setText("");
     setLoading(true);
     axios
@@ -31,10 +38,12 @@ const Chat = () => {
           Back
         </Link>
       </nav>
-      {avatar !== null && <img class={style.avatar} src={avatar}></img>}
+      {avatar !== null && (
+        <img class={style.avatar} src={avatar} onClick={requestGibberish}></img>
+      )}
       <p>{speech}</p>
       <textarea onInput={(e) => setText(e.target.value)}>{text}</textarea>
-      <button onClick={requestGibberish}>Send</button>
+      <button onClick={requestMoreGibberish}>Send</button>
     </div>
   );
 };

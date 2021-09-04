@@ -21,7 +21,7 @@ const Home = ({ updateBlob }) => {
       <input type="file" onInput={onUpload}>
         Upload
       </input>
-      {!!avatar && <img src={avatar} />}
+      {!!avatar && <img class={style.avatar} src={avatar} />}
       <Link activeClassName={style.active} href="/chat">
         Next
       </Link>
