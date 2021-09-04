@@ -100,6 +100,5 @@ class NgramLM(object):
         pickle.dump(self.get_vocabulary(), open(vocab_path, 'wb'))
 
 ng = NgramLM(3)
-print(sys.argv[1])
 ng.read_file(sys.argv[1])
 ng.wrtie_to_file("word_count", "context_count", "vocab")

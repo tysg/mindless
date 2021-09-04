@@ -6,10 +6,12 @@ import Home from "../routes/home";
 import Chat from "../routes/chat";
 import { useState } from "preact/hooks";
 
+import RobertPattinson from "../assets/avatars/robert-pattinson.jpg";
+
 export const AvatarContext = createContext(null);
 
 const App = () => {
-  const [blob, setBlob] = useState(null);
+  const [blob, setBlob] = useState(RobertPattinson);
   return (
     <div id="app">
       <AvatarContext.Provider value={blob}>

@@ -1,0 +1,48 @@
+.avatar {
+  margin-top: 10px;
+  border-radius: 50%;
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+}
+
+.container {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 70%;
+  align-items: center;
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.bubble {
+  min-height: 80px;
+  min-width: 350px;
+	position: relative;
+	background: #eeebbf;
+	border-radius: .4em;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 52px solid transparent;
+	border-top-color: #eeebbf;
+	border-bottom: 0;
+	margin-left: -52px;
+	margin-bottom: -52px;
+}
+
+input {
+  width: 60%;
+}

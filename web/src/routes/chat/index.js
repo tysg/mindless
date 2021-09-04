@@ -11,27 +11,36 @@ const Chat = () => {
   const avatar = useContext(AvatarContext);
   const [text, setText] = useState("");
   const [speech, setSpeech] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const requestGibberish = () => {
-    setText("");
-    setLoading(true);
-    axios
-      .post(backendEndpoint, text)
-      .then((value) => {
-        console.log(value);
-        setSpeech(value.data);
-      })
-      .then(() => setLoading(false));
+    axios.get(backendEndpoint).then((value) => {
+      console.log(value);
+      setSpeech(value.data);
+    });
   };
+
+  const requestMoreGibberish = () => {
+    axios.post(backendEndpoint, text).then((value) => {
+      console.log(value);
+      setSpeech(value.data);
+    });
+  };
+
   return (
-    <div>
-      <Link href="/">Back</Link>
-      {avatar !== null && <img src={window.URL.createObjectURL(avatar)}></img>}
-      <h1>Talk</h1>
-      <p>{speech}</p>
-      <textarea onInput={(e) => setText(e.target.value)}>{text}</textarea>
-      <button onClick={requestGibberish}>Send</button>
+    <div class={style.container}>
+      <nav>
+        <Link activeClassName={style.active} href="/">
+          Back
+        </Link>
+      </nav>
+      <div class={style.bubble}>{speech}</div>
+      <div class={style.container}>
+        {avatar !== null && (
+          <img class={style.avatar} src={avatar} onClick={requestGibberish}></img>
+        )}
+        <input onInput={(e) => setText(e.target.value)}>{text}</input>
+        <button class={style.button} onClick={requestMoreGibberish}>Send</button>
+      </div>
     </div>
   );
 };
