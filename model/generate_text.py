@@ -77,10 +77,14 @@ class TextGenerator(object):
         return s.replace(" i ", " I ").replace(" i'", " I'").replace(" i’", " I’")
 
     def get_ending_punctuation(self):
-        ending_punctuations = [
-            '.', '...', '!', '?', '?!', '!!', ' ~ ~', 
-            '♡', '☆', '★', ' ♫', ' ♩', ' ☽'
-        ]
+        # ending_punctuations = [
+        #     '.', '...', '!', '?', '?!', '!!', ' ~ ~', 
+        #     '♡', '☆', '★', ' ♫', ' ♩', ' ☽'
+        # ]
+        ending_punctuations = [' 😁', ' 😆', ' 🤣', ' 😉', ' 😊', ' 🥰', ' 🤩', ' 😚', 
+            ' 😋', ' 😜', ' 😝', ' 🤗', ' 🤔', ' 🥳', ' 😎', ' 🥺', ' 💕', ' ❤', ' 💙', 
+            ' 💯', ' 👍', ' 👊', ' 👏', ' 💪', ' 👀', ' 🌸', ' 🍀', ' 🌟', ' 🔥', ' ✨', 
+            ' 🎉', ' 🏅']
         return random.choice(ending_punctuations)
 
     def continue_to_say_something(self, input_text):
@@ -124,7 +128,7 @@ class TextGenerator(object):
             sentence = " ".join(max_key)
             words_left = length - (self.n-1)
             if sentence[-1] == "~":
-                return sentence[2:-1].strip().capitalize()
+                return sentence[2:-1].strip().capitalize() + self.get_ending_punctuation()
         
             # generate the rest of the sentence
             for i in range(words_left, 0, -1):
