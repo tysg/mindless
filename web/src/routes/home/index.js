@@ -7,7 +7,9 @@ import style from "./style.css";
 const Home = ({ updateBlob }) => {
   const avatar = useContext(AvatarContext);
   const onUpload = ({ target }) => {
-    updateBlob(target.files[0]);
+    if (target.files[0] instanceof Blob) {
+      updateBlob(window.URL.createObjectURL(target.files[0]));
+    }
   };
 
   return (
@@ -18,7 +20,7 @@ const Home = ({ updateBlob }) => {
       <input type="file" onInput={onUpload}>
         Upload
       </input>
-      {avatar !== null && <img src={window.URL.createObjectURL(avatar)}></img>}
+      {avatar && <img src={avatar}></img>}
       <Link activeClassName={style.active} href="/chat">
         Next
       </Link>

@@ -26,9 +26,17 @@ const Chat = () => {
   };
   return (
     <div>
-      <Link href="/">Back</Link>
-      {avatar !== null && <img src={window.URL.createObjectURL(avatar)}></img>}
-      <h1>Talk</h1>
+      <nav>
+        <Link activeClassName={style.active} href="/">
+          Back
+        </Link>
+      </nav>
+      {avatar !== null && (
+        <img
+          class={style.avatar}
+          src={window.URL.createObjectURL(avatar)}
+        ></img>
+      )}
       <p>{speech}</p>
       <textarea onInput={(e) => setText(e.target.value)}>{text}</textarea>
       <button onClick={requestGibberish}>Send</button>
