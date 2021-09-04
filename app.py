@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'any secret key'
 
-
 @app.route("/")
 @app.route("/chat")
 def index():
@@ -19,14 +18,10 @@ def index():
 def get_gibberish():
     input_phrase = request.get_data() if request.method == "POST" else ""
 
-    # run generator
-    tg = TextGenerator(3, 0.00001)
-    output = tg.generate_text(SENTENCE_LENGTH)
-
     if input_phrase:
-        return "phrase exists"
+        return TextGenerator().continue_to_say_something(input_phrase.decode())
     else:
-        return output
+        return TextGenerator().say_something()
 
 
 @app.route("/<path:name>")

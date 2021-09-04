@@ -87,7 +87,7 @@ class TextGenerator(object):
         return random.choice(ending_punctuations)
 
     def continue_to_say_something(self, text):
-        length = self.get_sentence_length(3,5)
+        length = self.get_sentence_length(2,4)
         words_left = length
         answer = ""
         
