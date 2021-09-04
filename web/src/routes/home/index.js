@@ -16,7 +16,7 @@ const Home = ({ updateBlob }) => {
   return (
     <div class={style.home}>
       <h1>Struggling?</h1>
-      <p>Watch our AI struggle more</p>
+      <p>Watch our AI struggle more 😉</p>
       <h2>Choose an avatar</h2>
       <input type="file" onInput={onUpload} style="margin-left:80px;"></input>
       {!!avatar && <img class={style.avatar} src={avatar} />}

@@ -10,7 +10,7 @@ import { AvatarContext } from "../../components/app";
 const Chat = () => {
   const avatar = useContext(AvatarContext);
   const [text, setText] = useState("");
-  const [speech, setSpeech] = useState("");
+  const [speech, setSpeech] = useState("Click me!");
 
   const requestGibberish = () => {
     axios.get(backendEndpoint).then((value) => {
@@ -38,7 +38,7 @@ const Chat = () => {
         {avatar !== null && (
           <img class={style.avatar} src={avatar} onClick={requestGibberish}></img>
         )}
-        <input onInput={(e) => setText(e.target.value)}>{text}</input>
+        <input class={style.textinput} onInput={(e) => setText(e.target.value)} placeholder="Type a few words...">{text}</input>
         <button class={style.button} onClick={requestMoreGibberish}>Send</button>
       </div>
     </div>

@@ -6,7 +6,7 @@ import Home from "../routes/home";
 import Chat from "../routes/chat";
 import { useState } from "preact/hooks";
 
-import RobertPattinson from "../assets/avatars/robert-pattinson.jpg";
+import RobertPattinson from "../assets/avatars/ty.jpg";
 
 export const AvatarContext = createContext(null);
 
