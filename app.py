@@ -5,14 +5,11 @@ from model.generate_text import TextGenerator
 STATIC_PATH = os.path.join("web", "build")
 SENTENCE_LENGTH = 7
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='web/build/',
+            static_url_path="/web/build/")
 
 app.config['SECRET_KEY'] = 'any secret key'
 
-
-@app.route("/")
-def index():
-    return send_from_directory(STATIC_PATH, "index.html")
 
 @app.route("/api/talk", methods=['GET', 'POST'])
 def get_gibberish():
@@ -28,14 +25,12 @@ def get_gibberish():
         return output
 
 
-@app.route("/<path:name>")
-def download_file(name):
-    return send_from_directory(
-        os.path.join("web", "build"), name
-    )
+@app.route('/', defaults={'path': ''})
+@app.route("/<path:path>")
+def index(path):
+    return app.send_static_file("index.html")
+
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
-
