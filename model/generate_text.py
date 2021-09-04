@@ -91,7 +91,7 @@ class TextGenerator(object):
     def continue_to_say_something(self, input_text):
         ''' Returns a phrase that follows the user input '''
 
-        length = self.get_sentence_length(2,4)
+        length = self.get_sentence_length(1,4)
         words_left = length
         answer = ""
         
