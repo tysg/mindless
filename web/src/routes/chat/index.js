@@ -11,7 +11,6 @@ const Chat = () => {
   const avatar = useContext(AvatarContext);
   const [text, setText] = useState("");
   const [speech, setSpeech] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const requestGibberish = () => {
     axios.get(backendEndpoint).then((value) => {
@@ -21,15 +20,11 @@ const Chat = () => {
   };
 
   const requestMoreGibberish = () => {
-    setText("");
-    setLoading(true);
-    axios
-      .post(backendEndpoint, text)
-      .then((value) => {
-        console.log(value);
-        setSpeech(value.data);
-      })
-      .then(() => setLoading(false));
+    axios.post(backendEndpoint, text).then((value) => {
+      console.log(value);
+      setSpeech(value.data);
+      setText("");
+    });
   };
   return (
     <div>
