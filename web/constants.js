@@ -1,1 +1,1 @@
-export const backendEndpoint = "api/getGibberish";
+export const backendEndpoint = "api/talk";

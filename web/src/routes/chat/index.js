@@ -17,8 +17,11 @@ const Chat = () => {
     setText("");
     setLoading(true);
     axios
-      .get(backendEndpoint)
-      .then((value) => setSpeech(value))
+      .post(backendEndpoint, text)
+      .then((value) => {
+        console.log(value);
+        setSpeech(value.data);
+      })
       .then(() => setLoading(false));
   };
   return (
@@ -26,6 +29,7 @@ const Chat = () => {
       <Link href="/">Back</Link>
       {avatar !== null && <img src={window.URL.createObjectURL(avatar)}></img>}
       <h1>Talk</h1>
+      <p>{speech}</p>
       <textarea onInput={(e) => setText(e.target.value)}>{text}</textarea>
       <button onClick={requestGibberish}>Send</button>
     </div>
