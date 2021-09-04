@@ -2,7 +2,7 @@
 
 ## Introduction
 
-mindless is fun application built using an N-gram language model. In particular, we chose 3-gram because it gives the best performance. We used chicken soup for the soul as the training corpus to generate word and context matrices. Based on Markov assumption, we continuously generate the next word using the probability calculated from the word and context matrices. We also use add-k smoothing to overcome the zero-count issue. 
+mindless is fun application built using an N-gram language model. In particular, we choose 3-gram because it gives the best performance. We use *Chicken Soup for the Soul* as the training corpus to generate word and context matrices. Based on Markov assumption, we continuously generate the next word using the probability calculated from the word and context matrices. We also use *add-k smoothing* to overcome the zero-count issue. 
 
 
 
