@@ -23,9 +23,9 @@ const Chat = () => {
     axios.post(backendEndpoint, text).then((value) => {
       console.log(value);
       setSpeech(value.data);
-      setText("");
     });
   };
+
   return (
     <div>
       <nav>
