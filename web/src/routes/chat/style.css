@@ -6,8 +6,10 @@ body {
 .avatar {
   margin-top: 10px;
   border-radius: 50%;
-  width: 50%;
-  height: auto;
+  width: 200px;
+  height: 200px;
+  /* width: 50%;
+  height: fit-content; */
   object-fit: cover;
 }
 
@@ -79,7 +81,7 @@ body {
 }
 
 .textinput {
-  width: 60%;
+  width: 100%;
   background-color: #FFBBBB;
   border-color: transparent;
   border-radius: 8px;
