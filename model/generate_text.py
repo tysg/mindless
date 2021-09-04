@@ -151,6 +151,6 @@ class TextGenerator(object):
 
         return sentence
 
-tg = TextGenerator()
+# tg = TextGenerator()
 # print(tg.continue_to_say_something("i want"))
-print(tg.say_something())
+# print(tg.say_something())
