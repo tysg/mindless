@@ -1,4 +1,5 @@
 body {
+  padding-top: 40px;
   background-color: #FFFFEF;
 }
 
@@ -31,15 +32,14 @@ body {
 
 .container {
   max-width: 400px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 70%;
   align-items: center;
 }
 
 .button {
-  margin-top: 20px;
   border-radius: 8px;
   background-color: #E3BB9D;
   border: none;
@@ -54,7 +54,7 @@ body {
 
 .bubble {
   min-height: 80px;
-  min-width: 350px;
+  width: 320px;
 	position: relative;
 	background: #eeebbf;
 	border-radius: .4em;
@@ -83,6 +83,6 @@ body {
   background-color: #FFBBBB;
   border-color: transparent;
   border-radius: 8px;
-  padding: 10px 10px;
+  padding: 10px 20px;
   font-size: large;
 }
