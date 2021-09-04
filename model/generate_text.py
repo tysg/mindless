@@ -2,6 +2,9 @@ import random
 import re
 import pickle
 import sys
+import os
+
+absolute_path = os.path.dirname(os.path.abspath(__file__))
 
 class TextGenerator(object):
 
@@ -18,10 +21,9 @@ class TextGenerator(object):
         '''
         self.n = n
         self.k = k
-        self.vocab = list(pickle.load(open('vocab', 'rb')))
-
-        self.word_count_dict = pickle.load(open('word_count', 'rb'))
-        self.contexts_count_dict = pickle.load(open('context_count', 'rb'))
+        self.vocab = list(pickle.load(open(os.path.join(absolute_path, 'vocab'), 'rb')))
+        self.word_count_dict = pickle.load(open(os.path.join(absolute_path,'word_count'), 'rb'))
+        self.contexts_count_dict = pickle.load(open(os.path.join(absolute_path, 'context_count'), 'rb'))
     
 
     def tokenize(self, text):
@@ -106,5 +108,6 @@ class TextGenerator(object):
             sentence = sentence[2:]
         return sentence
 
-tg = TextGenerator(3, 0.00001)
-print(tg.generate_text(int(sys.argv[1])))
+if __name__ == "__main__":
+    tg = TextGenerator(3, 0.00001)
+    print(tg.generate_text(int(sys.argv[1])))
