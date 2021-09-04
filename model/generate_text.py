@@ -1,9 +1,4 @@
-'''
-    NUS CS4248 Assignment 1 - Objective 3 (n-gram Language Model)
-
-    Class NgramLM for handling Objective 3
-'''
-import random, math
+import random
 import re
 import pickle
 import sys
@@ -12,31 +7,30 @@ class TextGenerator(object):
 
     def __init__(self, n, k):
         '''
-            Initialize your n-gram LM class
+            Initialize the text generator
 
             Parameters:
                 n (int) : order of the n-gram model
                 k (float) : smoothing hyperparameter
-
+                vocab (list) : vocabulary of the corpus
+                word_count_dict : key=(context_n-1,...,context_1, word), value=count
+                contexts_count_dict : key=(context_n-1,...,context_1), value=count
         '''
-        # Initialise other variables as necessary
         self.n = n
         self.k = k
         self.vocab = list(pickle.load(open('vocab', 'rb')))
-        
-        '''
-        1. word_count_dict: key=(context_n-1,...,context_1, word), value=count
-        2. contexts_count_dict: key=(context_n-1,...,context_1), value=count
-        '''
+
         self.word_count_dict = pickle.load(open('word_count', 'rb'))
         self.contexts_count_dict = pickle.load(open('context_count', 'rb'))
     
+
     def tokenize(self, text):
         for c in re.findall("([A-Z]+)", text):
             text = text.replace(c, c.lower())
         # split by non-alphabet, except ' - and ~
         tokens = re.split(r'[^a-zA-Z\'\-~]+', text)      
         return [x for x in tokens if x != ""]
+
 
     def get_next_word_probability(self, text, word):
         ''' Returns the probability of word appearing after specified text '''

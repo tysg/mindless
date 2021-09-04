@@ -1,9 +1,3 @@
-'''
-    NUS CS4248 Assignment 1 - Objective 3 (n-gram Language Model)
-
-    Class NgramLM for handling Objective 3
-'''
-import random, math
 import re
 import pickle
 import sys
@@ -12,25 +6,24 @@ class NgramLM(object):
 
     def __init__(self, n, k):
         '''
-            Initialize your n-gram LM class
+            Initialize the n-gram LM class
 
             Parameters:
                 n (int) : order of the n-gram model
                 k (float) : smoothing hyperparameter
-
+                corpus (string) : text corpus used
+                tokens (list) : results of tokenization
+                word_count_dict : key=(context_n-1,...,context_1, word), value=count
+                contexts_count_dict : key=(context_n-1,...,context_1), value=count
         '''
-        # Initialise other variables as necessary
         self.n = n
         self.k = k
         self.corpus = ""
         self.tokens = []
-        
-        '''
-        1. word_count_dict: key=(context_n-1,...,context_1, word), value=count
-        2. contexts_count_dict: key=(context_n-1,...,context_1), value=count
-        '''
+
         self.word_count_dict = {}
         self.contexts_count_dict = {}
+
 
     def update_corpus(self, text):
         ''' Updates the n-grams corpus based on text '''
@@ -52,14 +45,14 @@ class NgramLM(object):
             else:
                 self.contexts_count_dict[item] = 1
 
+
     def read_file(self, path):
         ''' Read the file and update the corpus  '''
-        # TODO Write your code here
-        
         with open(path, encoding='utf-8', errors='ignore') as f:
             self.corpus = f.read()
         self.corpus = self.add_padding()
         self.update_corpus(self.corpus)
+
 
     def ngrams(self):
         ''' 
@@ -83,11 +76,13 @@ class NgramLM(object):
                 ngrams.append(tuple(context))
         return ngrams, contexts
         
+
     def add_padding(self):
         '''  Returns padded text '''
-        # Use '~' as your padding symbol
+        # Use '~' as the padding symbol
         self.corpus = "~ " + self.corpus
         return re.sub(r'((?<!Mr|Dr|Ms)(?<!Mrs)\.|\?|!|;|:)+', r' ~ ', self.corpus)
+
 
     def tokenize(self, text):
         for c in re.findall("([A-Z]+)", text):
@@ -95,6 +90,7 @@ class NgramLM(object):
         # split by non-alphabet, except ' - and ~
         tokens = re.split(r'[^a-zA-Z\'\-~]+', text)      
         return [x for x in tokens if x != ""]
+
 
     def get_vocabulary(self):
         ''' Returns the vocabulary as set of words '''        
@@ -104,7 +100,6 @@ class NgramLM(object):
         pickle.dump(self.word_count_dict, open(word_count_path, 'wb'))
         pickle.dump(self.contexts_count_dict, open(context_count_path, 'wb'))
         pickle.dump(self.get_vocabulary(), open(vocab_path, 'wb'))
-
 
 ng = NgramLM(3, 0.00001)
 print(sys.argv[1])
