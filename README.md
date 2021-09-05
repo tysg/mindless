@@ -9,12 +9,12 @@
 Mind LESS and laugh MORE with *Mindless* 😉
 
 
-## Up and Running
+## Give It A Try
 
 You can try out *Mindless* at https://mind-less.herokuapp.com.
 
 
-## Building the Project
+## Building The Project
 
 You can use Python 3 and Node.js to build and run the project.
 
