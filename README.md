@@ -19,11 +19,14 @@ Here are some of the examples:
 
 
 
-## Up and Running
+## Give It A Try
 
 You can try out *Mindless* at https://mind-less.herokuapp.com.
 
-Else, you can also use Python 3 and Node.js to build and run the project.
+
+## Building The Project
+
+You can use Python 3 and Node.js to build and run the project.
 
 Install the Python dependencies using
 
