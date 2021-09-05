@@ -8,6 +8,16 @@
 
 Mind LESS and laugh MORE with *Mindless* 😉
 
+## Examples
+
+Here are some of the examples: 
+
+<img src="demo_pics/IMG_3990.png" width="200"/> 
+<img src="demo_pics/IMG_3992.png" width="200"/> 
+<img src="demo_pics/IMG_3996.png" width="200"/> 
+<img src="demo_pics/IMG_4002.png" width="200"/> 
+
+
 
 ## Up and Running
 
