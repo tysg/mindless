@@ -8,16 +8,6 @@
 
 Mind LESS and laugh MORE with *Mindless* 😉
 
-## Examples
-
-Here are some of the examples: 
-
-<img src="demo_pics/IMG_3990.png" width="200"/> 
-<img src="demo_pics/IMG_3992.png" width="200"/> 
-<img src="demo_pics/IMG_3996.png" width="200"/> 
-<img src="demo_pics/IMG_4002.png" width="200"/> 
-
-
 
 ## Give It A Try
 
@@ -51,3 +41,12 @@ python3 app.py
 This spins up a Python Flask server that servers the frontend asset,
 and also provides the API to the backend language model via `/api/talk`
 
+
+## Examples
+
+Here are some of the examples: 
+
+![Demo 1](demo_pics/IMG_3990.png)
+![Demo 2](demo_pics/IMG_3992.png)
+![Demo 3](demo_pics/IMG_3996.png)
+![Demo 4](demo_pics/IMG_4002.png)
