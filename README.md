@@ -46,7 +46,7 @@ and also provides the API to the backend language model via `/api/talk`
 
 Here are some of the examples: 
 
-![Demo 1](demo_pics/IMG_3990.png)
-![Demo 2](demo_pics/IMG_3992.png)
-![Demo 3](demo_pics/IMG_3996.png)
-![Demo 4](demo_pics/IMG_4002.png)
+![Demo 1](demo_pics/IMG_3990.PNG)
+![Demo 2](demo_pics/IMG_3992.PNG)
+![Demo 3](demo_pics/IMG_3996.PNG)
+![Demo 4](demo_pics/IMG_4002.PNG)
