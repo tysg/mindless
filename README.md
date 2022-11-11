@@ -41,6 +41,12 @@ python3 app.py
 This spins up a Python Flask server that servers the frontend asset,
 and also provides the API to the backend language model via `/api/talk`
 
+## Deploying to fly.io
+
+There's some rough edges that hasn't yet to be evened out. For now, 
+comment out the front-end `build` folder from the `.dockerignore` file
+so that it'll be included in the built image. 
+
 
 ## Examples
 
